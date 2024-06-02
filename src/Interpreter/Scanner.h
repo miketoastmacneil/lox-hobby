@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 
-#include "Interpreter/Tokens.h"
+#include "Tokens.h"
 
 namespace scanner::detail {
 
@@ -121,7 +121,6 @@ private:
         return IsAlpha(c) || IsDigit(c);
     }
     
-
     std::string src_;
     int start_ = 0;
     int current_ = 0;

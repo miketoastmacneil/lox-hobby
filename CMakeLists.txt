@@ -23,14 +23,9 @@ if(USE_ASAN)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")  
 endif()
 
-#include 
-include_directories(include) 
-
-source_group("Header Files" FILES include/Interpreter/Scanner.h include/Interpreter/Tokens.h)
-
 # Add subdirectories
-add_subdirectory(src/Interpreter)
-add_subdirectory(src/ast_tool)
+add_subdirectory(src)
+
 
 # Add tests (if Catch2 is found)
 if(CATCH_FOUND)

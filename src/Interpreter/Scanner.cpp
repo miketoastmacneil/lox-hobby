@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <iostream>
 
-#include "Interpreter/Scanner.h"
+#include "Scanner.h"
 
 std::vector<Token> Scanner::ScanTokens() {
     while(!AtEnd()) {

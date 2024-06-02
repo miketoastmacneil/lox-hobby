@@ -1,11 +1,9 @@
-
 #include <filesystem>
 #include <iostream>
 #include <set>
 #include <string>
 
-#include "Interpreter/Lexer.h"
-#include "Interpreter/Scanner.h"
+#include "interpreter/Scanner.h"
 
 namespace fs = std::filesystem;
 

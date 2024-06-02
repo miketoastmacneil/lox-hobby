@@ -1,4 +1,9 @@
-add_executable(lox Interpreter.cpp Lexer.cpp Scanner.cpp Tokens.cpp)
+add_executable(lox 
+    main.cpp
+    interpreter/Scanner.h
+    interpreter/Scanner.cpp 
+    interpreter/Tokens.h
+    interpreter/Tokens.cpp)
 
 set_target_properties(lox PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")  # Set the build directory for the executable

@@ -1,6 +1,6 @@
 
 
-#include "Interpreter/Tokens.h"
+#include "Tokens.h"
 
 // Overloaded operator<< to print TokenType names
 std::ostream& operator<<(std::ostream& os, TokenType type) {
