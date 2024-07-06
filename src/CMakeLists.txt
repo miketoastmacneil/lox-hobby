@@ -1,8 +1,13 @@
 add_executable(lox 
     main.cpp
-    interpreter/Scanner.h
+    interpreter/Interpreter.hpp
+    interpreter/Interpreter.cpp
+    interpreter/Parser.hpp
+    interpreter/Parser.cpp
+    interpreter/AST.hpp
+    interpreter/Scanner.hpp
     interpreter/Scanner.cpp 
-    interpreter/Tokens.h
+    interpreter/Tokens.hpp
     interpreter/Tokens.cpp)
 
 set_target_properties(lox PROPERTIES

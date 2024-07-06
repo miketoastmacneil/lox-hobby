@@ -26,7 +26,6 @@ endif()
 # Add subdirectories
 add_subdirectory(src)
 
-
 # Add tests (if Catch2 is found)
 if(CATCH_FOUND)
     enable_testing()
