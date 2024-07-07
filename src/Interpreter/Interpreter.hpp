@@ -1,13 +1,22 @@
 
+
+#pragma once
 #include "AST.hpp"
 
-class Interpreter {
+class Interpreter: public ExprVisitor {
 public:
     
-    LiteralVariant Visit(const Literal& literal);
+    LiteralVariant Interpret(const Expr& expr);
     
-    // Need to figre out how to allow this to be dynamically
-    // Tpyed.
+private:
     
+    LiteralVariant VisitLiteral(const Literal& literal);
     
+    LiteralVariant VisitGrouping(const Grouping& grouping);
+    
+    LiteralVariant Evaluate(const Expr& expr);
+    
+    LiteralVariant VisitUnary(const Unary& expr);
+    
+    LiteralVariant VisitBinary(const Binary& expr);
 };

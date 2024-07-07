@@ -1,5 +1,7 @@
 add_executable(lox 
     main.cpp
+    interpreter/ErrorHandling.hpp
+    interpreter/ErrorHandling.cpp
     interpreter/Interpreter.hpp
     interpreter/Interpreter.cpp
     interpreter/Parser.hpp

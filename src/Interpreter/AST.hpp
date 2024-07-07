@@ -15,16 +15,17 @@ struct Unary;
 struct Binary;
 
 
-template <typename T>
-concept ExprVisitor = requires(T t, const Literal &l, const Grouping &gr,
-                               const Unary &un, const Binary &bin) {
-  { t.Visit(l) } -> std::same_as<LiteralVariant>;
-  { t.visit(gr) } -> std::same_as<void>;
-  { t.visit(un) } -> std::same_as<void>;
-  { t.visit(bin) } -> std::same_as<void>;
+class ExprVisitor {
+public:
+    virtual LiteralVariant VisitLiteral(const Literal& literal) = 0;
+    virtual LiteralVariant VisitGrouping(const Grouping& grouping) = 0;
+    virtual LiteralVariant VisitUnary(const Unary& unary) = 0;
+    virtual LiteralVariant VisitBinary(const Binary& binary) = 0;
+    virtual ~ExprVisitor() = default;
 };
 
-struct Expr {
+struct Expr  {
+virtual LiteralVariant accept(ExprVisitor& visitor) const = 0;
   virtual ~Expr() = default;
 };
 
@@ -39,15 +40,17 @@ struct Literal : Expr {
   Literal(bool val) : value{val} {}
   Literal(const LoxNil &val) : value{val} {}
 
-  void accept(ExprVisitor auto &visitor) { visitor->visit(*this); }
+  inline LiteralVariant accept(ExprVisitor& visitor) const override { return visitor.VisitLiteral(*this);
+    }
 };
 
 struct Grouping : Expr {
-  ExprPtr expression;
-  Grouping(ExprPtr expr) : expression{std::move(expr)} {}
-
-  template<typename RetT, typename VisitT>
-  RetT accept(VisitT visitor) { return visitor.Visit(*this); }
+    ExprPtr expression;
+    Grouping(ExprPtr expr) : expression{std::move(expr)} {}
+    
+    inline LiteralVariant accept(ExprVisitor& visitor) const override {
+        return visitor.VisitGrouping(*this);
+    }
 };
 
 struct Unary : Expr {
@@ -57,7 +60,8 @@ struct Unary : Expr {
   Unary(ExprPtr in_right, Token &&token)
       : right{std::move(in_right)}, op{std::move(token)} {}
 
-  void accept(ExprVisitor auto &visitor) { visitor->visit(*this); }
+    inline LiteralVariant accept(ExprVisitor& visitor) const override { return visitor.VisitUnary(*this);
+    }
 };
 
 struct Binary : Expr {
@@ -68,5 +72,6 @@ struct Binary : Expr {
   Binary(ExprPtr left, ExprPtr right, Token &&token)
       : left(std::move(left)), right{std::move(right)}, op{std::move(token)} {}
 
-  void accept(ExprVisitor auto &visitor) { visitor.visit(*this); }
+    LiteralVariant accept(ExprVisitor& visitor) const override { return visitor.VisitBinary(*this);
+    }
 };

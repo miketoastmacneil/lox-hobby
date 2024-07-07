@@ -11,10 +11,6 @@ namespace fs = std::filesystem;
 
 const std::set<std::string> exit_keys = {"exit", "exit()"};
 
-namespace lox {
-
-
-}
 
 void Run(const std::string &src) {
 
@@ -22,6 +18,8 @@ void Run(const std::string &src) {
   auto tokens = scanner.ScanTokens();
     Parser parser(tokens);
     auto expr = parser.Parse();
+    Interpreter interpreter{};
+    auto res = interpreter.Interpret(*expr);
 
   for (auto token : tokens) {
     std::cout << token << std::endl;

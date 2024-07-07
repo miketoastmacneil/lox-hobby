@@ -1,4 +1,5 @@
 
+#include "ErrorHandling.hpp"
 #include "Parser.hpp"
 #include <memory>
 
@@ -140,5 +141,6 @@ Token Parser::Consume(TokenType type, std::string msg) {
     // Need to hook this up to the error reporting. 
   if (Check(type))
     return Advance();
+  lox::error(Peek(), msg);
   throw std::invalid_argument(msg);
 }
